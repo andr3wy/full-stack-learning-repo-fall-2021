@@ -1,0 +1,44 @@
+{
+    "basics": {
+    "name" : "Andrew Yao",
+    "image": "",
+    "email" : "andrewyao@utexas.edu",
+    "phone" : "(737)-615-0851",
+    "summary" : "I am a quick learner with a ravenous curiosity that has a solid technical foundation.",
+    "location" : {
+        "address" : "6910 Shumard Cir",
+        "postalCode" : "78759",
+        "city" : "Austin",
+        "countryCode" : "US",
+        "region" : "Texas"
+        }
+    },
+    "work" : [
+        {
+            "name" : "Applied Research Laboratories",
+            "position" : "Engineering Apprentice/Intern",
+            "url" : "https://www.arlut.utexas.edu/",
+            "startDate" : "2021-06-11",
+            "endDate" : "2021-08-12",
+            "summary" : "Developed novel test apparatuses to measure acoustic properties of various custom epoxy nanocomposite mixtures."
+        }
+    ],
+    "education" : [
+        {
+            "institution" : "The University of Texas at Austin",
+            "url" : "https://www.utexas.edu/",
+            "area" : "Computer Science",
+            "studyType" : "Bachelor",
+            "startDate" : "2021-08-25",
+            "endDate" : "2024-05-17"
+        }
+    ],
+    "interests" : [
+        "tennis",
+        "music",
+        "mountain biking",
+        "skating"
+    ]
+
+
+}
