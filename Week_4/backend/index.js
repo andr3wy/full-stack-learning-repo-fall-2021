@@ -95,5 +95,6 @@ app.put("/user/:user_id", (req, res) => {
 });
 // Deleting a User
 app.delete("/user/:user_id", (req, res) => {
-  //TODO
+    const body = req.body;
+    
 });
