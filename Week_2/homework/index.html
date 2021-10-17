@@ -7,54 +7,122 @@
   <meta name="description" content="" />
 </head>
 <body>
-  <p id="resumehtml"></p>
-  <script>
+  <h1 id="name"></h1>
+  <h2>Introduction</h2>
+  <p id="introduction"></p>
+  <h2>Education</h2>
+  <ol id="education"></ol>
+  <h2>Experience</h2>
+  <ul id="experience"></ul>
+  <h2>Interests</h2>
+  <ul id="interests"></ul>
+  <h2>Contact Me</h2>
+  <a id="email"></a>
+  <p id="phone"></p>
+  <h2>Address</h2>
+  <p id="address"></p>
+
+    <script>
       let resume = {
-      "basics": {
-      "name" : "Andrew Yao",
-      "image": "https://i.imgur.com/TlcEJmj.jpeg",
-      "email" : "andrewyao@utexas.edu",
-      "phone" : "(737)-615-0851",
-      "summary" : "I am a quick learner with a ravenous curiosity that has a solid technical foundation.",
-      "location" : {
-          "address" : "6910 Shumard Cir",
-          "postalCode" : "78759",
-          "city" : "Austin",
-          "countryCode" : "US",
-          "region" : "Texas"
+      basics: {
+      name : "Andrew Yao",
+      image: "https://i.imgur.com/TlcEJmj.jpeg",
+      email : "andrewyao@utexas.edu",
+      phone : "(737)-615-0851",
+      summary : "I am a quick learner with a ravenous curiosity that has a solid technical foundation.",
+      location : {
+          address : "6910 Shumard Cir",
+          postalCode : "78759",
+          city : "Austin",
+          countryCode : "US",
+          region : "Texas"
           }
       },
-      "work" : [
+      work : [
           {
-              "name" : "Applied Research Laboratories",
-              "position" : "Engineering Apprentice/Intern",
-              "url" : "https://www.arlut.utexas.edu/",
-              "startDate" : "2021-06-11",
-              "endDate" : "2021-08-12",
-              "summary" : "Developed novel test apparatuses to measure acoustic properties of various custom epoxy nanocomposite mixtures."
+              name : "Applied Research Laboratories",
+              position : "Engineering Apprentice/Intern",
+              url : "https://www.arlut.utexas.edu/",
+              startDate : "2021-06-11",
+              endDate : "2021-08-12",
+              summary : "Developed novel test apparatuses to measure acoustic properties of various custom epoxy nanocomposite mixtures."
           }
       ],
-      "education" : [
+      education : [
           {
-              "institution" : "The University of Texas at Austin",
-              "url" : "https://www.utexas.edu/",
-              "area" : "Computer Science",
-              "studyType" : "Bachelor",
-              "startDate" : "2021-08-25",
-              "endDate" : "2024-05-17"
+              institution : "The University of Texas at Austin",
+              url : "https://www.utexas.edu/",
+              area : "Computer Science",
+              studyType : "Bachelor",
+              startDate : "2021-08-25",
+              endDate : "2024-05-17"
           }
       ],
-      "interests" : [
+      interests : [
           "tennis",
           "music",
           "mountain biking",
           "skating"
       ]
+      };
+      const parsedResume = JSON.parse(JSON.stringify(resume));
+      document.getElementById("name").innerHTML = parsedResume.basics.name;
+      document.getElementById("introduction").innerHTML = parsedResume.basics.summary;
 
+      
+      const x = parsedResume.education[0];
+      utexas = document.createElement("a");
+      utexas.innerHTML = x.institution;
+      utexas.setAttribute("href", x.url);
+      list = document.createElement("li");
+      list.appendChild(utexas);
+      document.getElementById("education").appendChild(list);
 
+      subinfo = document.createElement("ul");
+      studyType = document.createElement("li");
+      studyType.innerHTML = x.studyType + "s in " + x.area;
+      subinfo.appendChild(studyType);
+      
+
+      dates = document.createElement("li");
+      dates.innerHTML = x.startDate + " to " + x.endDate;
+      subinfo.appendChild(dates);    
+      list.appendChild(subinfo);
+
+      for(const y of parsedResume.work) {
+          arl = document.createElement("a");
+          arl.innerHTML = y.name;
+          arl.setAttribute("href", y.url);
+          job = document.createElement("li");
+          job.appendChild(arl);
+          experience.appendChild(job);
+          
+          details = document.createElement("ul");
+          job.appendChild(details);
+
+          dates = document.createElement("li");
+          dates.innerHTML = y.startDate + " to " + y.endDate;
+          details.appendChild(dates);
+
+          role = document.createElement("li");
+          role.innerHTML = y.position;
+          details.appendChild(role);
+
+          description = document.createElement("li");
+          description.innerHTML = y.summary;
+          role.appendChild(description);
       }
-      const resum = JSON.parse(resume);
-      document.getElementById("resumehtml").innerHTML = resum;
+      interest = document.createElement("ol");
+      document.getElementById("interests").appendChild(interest);
+      for(const y of parsedResume.interests) {
+          subinterest = document.createElement("li")
+          subinterest.innerHTML = y;
+          interest.appendChild(subinterest);
+      }
+      document.getElementById("email").innerHTML = parsedResume.basics.email;
+      document.getElementById("phone").innerHTML = parsedResume.basics.phone;
+      document.getElementById("address").innerHTML = parsedResume.basics.location.address + ", " + parsedResume.basics.location.city + ", " + parsedResume.basics.location.region + ", " + parsedResume.basics.location.postalCode;
+
   </script>
 </body>
 </html>
