@@ -10,8 +10,22 @@
 <body>
 	<div id='main-container'>
 		<div id='weather-container'>
+			<div id="current-weather">
+				<h3 id="current-date"></h4>
+				<h1 id="city"></h1>
+				<div id="current-conditions">
+					<div id="details">
+						<h2 id="sky-description"></h4>
+						<h1 id="temp"></h1>
+						<h4 id="aqiCurrent"></h4>
+					</div>
+					<img id="icon"></img>
+				</div>
+			</div>
+		</div>		
+			<div id="five-day">
+			</div>
 		</div> 
-	</div>
 	<div id='side-container'>
 		<div>
 			<input id='search-input' placeholder='search for a city'></input>
@@ -23,7 +37,7 @@
 
 <script>
 		// USE YOUR OWN API KEY
-		const apiKey = "";
+		const apiKey = "4fa89980077ea95558bed505ab7f94e3";
 
         // variable that stores the city that is chosen
 		let city;
@@ -100,6 +114,62 @@
 				lon: lon
 			}
             // BEGIN CODING HERE
+			document.getElementById("city").innerHTML = "Weather for " + city.fullName;
+			getAndRenderWeather();
+			getAndRenderAQI();
 		}
+
+		function getAndRenderWeather() {
+			let apiCall = `https://api.openweathermap.org/data/2.5/onecall?lat=${city.lat}&lon=${city.lon}&units=imperial&appid=${apiKey}`;
+			fetch(apiCall)
+				.then((response) =>
+					response.json()
+				)
+				.then((data) => {
+					weather = data
+					document.getElementById("temp").innerHTML = Math.round(weather.current.temp);
+					document.getElementById("sky-description").innerHTML = weather.current.weather[0].description;
+					document.getElementById("current-date").innerHTML = formatDate();
+					document.getElementById("icon").src = `icons/${weather.current.weather[0].icon}.svg`;
+					document.getElementById("icon").alt = "weather-icon";
+					
+					
+					for(let i = 1; i <= 5; i++) {
+						let dayCard = document.createElement("div");
+						dayCard.className = "day-card";
+						let futureDate = document.createElement("h3");
+						dayCard.appendChild(futureDate); //check if right order
+						futureDate.className = "date";
+						futureDate.innerHTML = formatDate(i);
+						
+						let futureIcon = document.createElement("img");
+						futureIcon.className = "card-icon";
+						futureIcon.src = `icons/${weather.daily[i].weather[0].icon}.svg`;
+						dayCard.appendChild(futureIcon);
+
+						let futureTemp = document.createElement("h2");
+						futureTemp.className = 'future-temp';
+						futureTemp.innerHTML = Math.round(weather.daily[i].temp.max) + " to " + Math.round(weather.daily[i].temp.min);
+						dayCard.appendChild(futureTemp);
+
+						document.getElementById("five-day").appendChild(dayCard);
+											}
+
+				});			
+		}
+
+		function getAndRenderAQI() {
+			let apiCall = `http://api.openweathermap.org/data/2.5/air_pollution?lat=${city.lat}&lon=${city.lon}&appid=${apiKey}`;
+			fetch(apiCall) 
+				.then((response) =>
+					response.json()
+				)
+				.then((data) => {
+					aqi = data
+					document.getElementById("aqiCurrent").innerHTML = "AQI: " + aqi.list[0].main.aqi;
+				});
+			
+		}
+	
 	</script>
 </html>
