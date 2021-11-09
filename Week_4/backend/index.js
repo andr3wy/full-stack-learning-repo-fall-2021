@@ -91,11 +91,8 @@ app.post("/user", (req, res) => {
 
 // Updating a User
 app.put("/user/:user_id", (req, res) => {
-  //TODO
-});
-// Deleting a User
-app.delete("/user/:user_id", (req, res) => {
-    const body = req.body;
+  const body = req.body;
+    
     if (body.age == undefined && body.name == undefined) {
       return res.json({
         msg: "Error: age or name not defined in request",
@@ -103,6 +100,33 @@ app.delete("/user/:user_id", (req, res) => {
       });
     }
 
-    
+    const user_id = req.user_id;
+    if(user_id in users == false) {
+      return res.json({
+        msg: "Error: user is not a valid user.",
+        data: {},
+      })
 
+    }
+    users[user_id] = {id: user_id, name = body.name, age = body.age}
+    return res.json({
+      msg: "Success",
+      data:{},
+    })
+});
+// Deleting a User
+app.delete("/user/:user_id", (req, res) => {
+  const user_id = req.user_id;
+  if(user_id in users == false) {
+    return res.json({
+      msg: "Error: user is not a valid user.",
+      data: {},
+    })
+  }
+  delete users[user_id];
+  return res.json({
+    msg: "Success",
+    data: {},
+  })
+  
 });
